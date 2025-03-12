@@ -1,10 +1,10 @@
-
 import { Home, Megaphone, MessageSquare, Bell, Search, Bot, X, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { useState, useRef, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { Link, useLocation } from "react-router-dom";
+import { Logo3D } from "./Logo3D";
 
 interface TopNavProps {
   className?: string;
@@ -90,11 +90,7 @@ export const TopNav = ({ className }: TopNavProps) => {
     <div className={cn("flex items-center justify-between w-full py-2 px-4 bg-white border-b shadow-sm", className)}>
       <div className="flex items-center space-x-2 flex-1">
         <Link to="/">
-          <img 
-            src="/lovable-uploads/abad0dae-c641-4c7d-ba2e-dfa5449c5e28.png" 
-            alt="All Things Advertising" 
-            className="h-14"
-          />
+          <Logo3D />
         </Link>
         <div className="relative max-w-md w-full hidden sm:block">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
