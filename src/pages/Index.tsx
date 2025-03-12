@@ -54,7 +54,7 @@ const Index = () => {
             <StatsCard
               icon={DollarSign}
               title="Revenue"
-              value="$308.69"
+              value="R3,086.90"
               className="bg-gradient-to-br from-white to-[#e0fff8]"
               iconColor="#40E0D0"
             />

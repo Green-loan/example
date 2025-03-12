@@ -3,27 +3,33 @@ import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import { useEffect, useState } from "react";
 
 const initialData = [
-  { month: "Oct 05", value: 0 },
-  { month: "06", value: 0 },
-  { month: "07", value: 0 },
-  { month: "08", value: 0 },
-  { month: "09", value: 0 },
-  { month: "10", value: 0 },
-  { month: "11", value: 0 },
-  { month: "12", value: 0 },
-  { month: "13", value: 0 },
+  { month: "Jan", value: 0 },
+  { month: "Feb", value: 0 },
+  { month: "Mar", value: 0 },
+  { month: "Apr", value: 0 },
+  { month: "May", value: 0 },
+  { month: "Jun", value: 0 },
+  { month: "Jul", value: 0 },
+  { month: "Aug", value: 0 },
+  { month: "Sep", value: 0 },
+  { month: "Oct", value: 0 },
+  { month: "Nov", value: 0 },
+  { month: "Dec", value: 0 },
 ];
 
 const finalData = [
-  { month: "Oct 05", value: 5 },
-  { month: "06", value: 5 },
-  { month: "07", value: 4 },
-  { month: "08", value: 5 },
-  { month: "09", value: 7 },
-  { month: "10", value: 5 },
-  { month: "11", value: 3 },
-  { month: "12", value: 5 },
-  { month: "13", value: 5 },
+  { month: "Jan", value: 5 },
+  { month: "Feb", value: 7 },
+  { month: "Mar", value: 4 },
+  { month: "Apr", value: 8 },
+  { month: "May", value: 6 },
+  { month: "Jun", value: 9 },
+  { month: "Jul", value: 5 },
+  { month: "Aug", value: 7 },
+  { month: "Sep", value: 4 },
+  { month: "Oct", value: 6 },
+  { month: "Nov", value: 8 },
+  { month: "Dec", value: 9 },
 ];
 
 export const ConversionsChart = () => {
@@ -54,7 +60,7 @@ export const ConversionsChart = () => {
             fontSize={12}
             tickLine={false}
             axisLine={false}
-            tickFormatter={(value) => `${value}k`}
+            tickFormatter={(value) => `R${value}k`}
           />
           <Bar
             dataKey="value"
