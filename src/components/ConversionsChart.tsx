@@ -48,6 +48,12 @@ export const ConversionsChart = () => {
     <div className="h-[300px] w-full">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data}>
+          <defs>
+            <linearGradient id="purpleBlueGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#7C42FF" />
+              <stop offset="100%" stopColor="#0EA5E9" />
+            </linearGradient>
+          </defs>
           <XAxis
             dataKey="month"
             stroke="#888888"
@@ -67,14 +73,7 @@ export const ConversionsChart = () => {
             fill="url(#purpleBlueGradient)"
             radius={[4, 4, 0, 0]}
             className="transition-all duration-1000 ease-out"
-          >
-            <defs>
-              <linearGradient id="purpleBlueGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#7C42FF" />
-                <stop offset="100%" stopColor="#0EA5E9" />
-              </linearGradient>
-            </defs>
-          </Bar>
+          />
         </BarChart>
       </ResponsiveContainer>
     </div>
