@@ -7,9 +7,9 @@ export const ProfileCard = () => {
       <div className="flex flex-col items-center">
         <div className="relative">
           <img 
-            src="/lovable-uploads/2800c615-7c2f-4181-bade-fa6ffe5ab2ba.png" 
+            src="/lovable-uploads/9ad7df03-82de-4a79-b1ac-a9769c51fb25.png" 
             alt="Toyota Motors" 
-            className="h-24 w-24 rounded-full border-4 border-white shadow-md"
+            className="h-24 w-24 rounded-full border-4 border-white shadow-md bg-white object-contain p-1"
           />
           <div className="absolute bottom-0 right-0 bg-green-500 text-white text-xs rounded-full px-2 py-0.5 text-center border border-white">
             PREMIUM
