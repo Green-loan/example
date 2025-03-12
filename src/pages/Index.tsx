@@ -28,21 +28,29 @@ const Index = () => {
               icon={Eye}
               title="Impressions"
               value="9,172"
+              className="bg-gradient-to-br from-white to-[#f0ebff]"
+              iconColor="#7C42FF"
             />
             <StatsCard
               icon={MousePointer}
               title="Clicks"
               value="32"
+              className="bg-gradient-to-br from-white to-[#ffdee2]"
+              iconColor="#ff6e8a"
             />
             <StatsCard
               icon={Zap}
               title="Conversions"
               value="56"
+              className="bg-gradient-to-br from-white to-[#fff4e0]"
+              iconColor="#FFA500"
             />
             <StatsCard
               icon={DollarSign}
               title="Revenue"
               value="$308.69"
+              className="bg-gradient-to-br from-white to-[#e0fff8]"
+              iconColor="#40E0D0"
             />
           </div>
         </div>
