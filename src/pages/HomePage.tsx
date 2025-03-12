@@ -1,7 +1,7 @@
-
 import { Star, Heart, Filter } from "lucide-react";
 import { useState } from "react";
 import { TopNav } from "@/components/TopNav";
+import { CategoryBanner } from "@/components/CategoryBanner";
 import { cn } from "@/lib/utils";
 
 // Ad categories
@@ -29,7 +29,13 @@ const HomePage = () => {
   
   // List of ad categories
   const categories: Category[] = [
-    { id: "amazing-products", name: "Amazing products", icon: <span className="text-xl">✨</span> },
+    { 
+      id: "amazing-products", 
+      name: "Amazing products", 
+      icon: <div className="h-12 w-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg animate-pulse flex items-center justify-center">
+        <span className="text-xl">✨</span>
+      </div>
+    },
     { id: "electronics", name: "Electronics", icon: <span className="text-xl">📱</span> },
     { id: "automotive", name: "Automotive", icon: <span className="text-xl">🚗</span> },
     { id: "fashion", name: "Fashion", icon: <span className="text-xl">👕</span> },
@@ -49,7 +55,7 @@ const HomePage = () => {
       location: "Johannesburg, Gauteng",
       rating: 4.82,
       isFavorite: false,
-      imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475",
+      imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&w=800&q=75",
       distance: "23 kilometers away",
       dateRange: "Mar 22 - 27",
       isGuestFavorite: false
@@ -60,7 +66,7 @@ const HomePage = () => {
       location: "Johannesburg, Gauteng",
       rating: 4.75,
       isFavorite: false,
-      imageUrl: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6",
+      imageUrl: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&w=800&q=75",
       distance: "17 kilometers away",
       dateRange: "Mar 22 - 27",
       isGuestFavorite: true
@@ -71,7 +77,7 @@ const HomePage = () => {
       location: "Johannesburg, Gauteng",
       rating: 4.88,
       isFavorite: false,
-      imageUrl: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
+      imageUrl: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&w=800&q=75",
       distance: "3 kilometers away",
       dateRange: "Mar 22 - 27",
       isGuestFavorite: true
@@ -82,7 +88,7 @@ const HomePage = () => {
       location: "Johannesburg, Gauteng",
       rating: 5.0,
       isFavorite: false,
-      imageUrl: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+      imageUrl: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&w=800&q=75",
       distance: "11 kilometers away",
       dateRange: "Mar 13 - 18",
       isGuestFavorite: false
@@ -93,7 +99,7 @@ const HomePage = () => {
       location: "Johannesburg, Gauteng",
       rating: 4.92,
       isFavorite: false,
-      imageUrl: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
+      imageUrl: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&w=800&q=75",
       distance: "28 kilometers away",
       dateRange: "Apr 5 - 10",
       isGuestFavorite: false
@@ -104,7 +110,7 @@ const HomePage = () => {
       location: "Pretoria, Gauteng",
       rating: 4.79,
       isFavorite: false,
-      imageUrl: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
+      imageUrl: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&w=800&q=75",
       distance: "45 kilometers away",
       dateRange: "Apr 15 - 22",
       isGuestFavorite: true
@@ -115,7 +121,7 @@ const HomePage = () => {
       location: "Pretoria, Gauteng",
       rating: 4.65,
       isFavorite: false,
-      imageUrl: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e",
+      imageUrl: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&w=800&q=75",
       distance: "52 kilometers away",
       dateRange: "May 1 - 7",
       isGuestFavorite: false
@@ -135,7 +141,6 @@ const HomePage = () => {
 
   // Handle toggling favorites
   const toggleFavorite = (id: string) => {
-    // This would normally update a state array, but for simplicity we're just showing the UI
     console.log(`Toggled favorite for ad ${id}`);
   };
 
@@ -143,76 +148,56 @@ const HomePage = () => {
     <div className="min-h-screen bg-[#f8f8f8]">
       <TopNav />
       <div className="mx-auto max-w-7xl">
-        {/* Categories Scrollable Bar */}
+        {/* Categories Scrollable Bar with Animated Banners */}
         <div className="overflow-x-auto px-6 py-4 flex items-center border-b border-gray-200 bg-white">
           <div className="flex space-x-8">
             {categories.map((category) => (
-              <button
+              <CategoryBanner
                 key={category.id}
+                title={category.name}
+                imageUrl={`/category-${category.id}.jpg`}
+                isActive={selectedCategory === category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={cn(
-                  "flex flex-col items-center pb-2 pt-2 min-w-[80px] transition-all duration-200",
-                  selectedCategory === category.id 
-                    ? "border-b-2 border-black text-black" 
-                    : "text-gray-500 hover:text-gray-800 border-b-2 border-transparent"
-                )}
-              >
-                <div className="mb-1">{category.icon}</div>
-                <span className="text-xs font-medium whitespace-nowrap">{category.name}</span>
-              </button>
+                icon={category.icon}
+              />
             ))}
           </div>
           
+          {/* Filter button with animation */}
           <div className="ml-auto pl-8 border-l">
-            <button className="flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
-              <Filter className="h-4 w-4" />
-              <span>Filters</span>
+            <button className="flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 transition-all duration-300 hover:scale-105">
+              <Filter className="h-4 w-4 animate-pulse" />
+              <span>AI Recommendations</span>
             </button>
           </div>
         </div>
 
-        {/* Toggle for tax display (for UI purposes only) */}
-        <div className="flex justify-end px-6 py-3 bg-white border-b">
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-700">Display total before taxes</span>
-            <div className="h-6 w-12 rounded-full bg-gray-200 flex items-center p-1 cursor-pointer">
-              <div className="h-4 w-4 rounded-full bg-white shadow-md"></div>
-            </div>
-          </div>
-        </div>
-
-        {/* Ad Grid */}
+        {/* Ad Grid with lazy loading and optimized images */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
           {adItems.map((ad) => (
             <div key={ad.id} className="group relative rounded-xl overflow-hidden bg-white shadow-sm transition-all duration-300 hover:shadow-md animate-fade-in">
-              {/* Image */}
-              <div className="relative h-64 w-full overflow-hidden">
+              {/* Image with loading optimization */}
+              <div className="relative h-64 w-full overflow-hidden bg-gray-100">
                 <img 
-                  src={ad.imageUrl} 
-                  alt={ad.title} 
+                  src={`${ad.imageUrl}&auto=format&w=800&q=75`}
+                  alt={ad.title}
+                  loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                {/* Favorite Button */}
                 <button 
                   onClick={() => toggleFavorite(ad.id)}
                   className="absolute right-3 top-3 rounded-full p-2 transition-colors"
                   aria-label="Add to favorites"
                 >
-                  <Heart className={cn("h-6 w-6", ad.isFavorite ? "fill-red-500 text-red-500" : "text-white")} />
+                  <Heart className={cn("h-6 w-6 transition-all duration-300", 
+                    ad.isFavorite ? "fill-red-500 text-red-500" : "text-white"
+                  )} />
                 </button>
                 
-                {/* Guest Favorite Badge */}
-                {ad.isGuestFavorite && (
-                  <div className="absolute left-3 top-3 bg-white/90 rounded-lg px-3 py-1 text-sm font-medium">
-                    Guest favorite
-                  </div>
-                )}
-                
-                {/* Indicators for multiple images */}
-                <div className="absolute bottom-3 left-0 right-0 flex justify-center space-x-1">
-                  {[...Array(5)].map((_, i) => (
-                    <div key={i} className="h-1.5 w-1.5 rounded-full bg-white/70" />
-                  ))}
+                {/* Rating stars with animation */}
+                <div className="absolute bottom-3 left-3 flex items-center gap-1 bg-white/90 rounded-lg px-2 py-1">
+                  <Star className="h-4 w-4 fill-yellow-500 text-yellow-500" />
+                  <span className="text-sm font-medium">{ad.rating}</span>
                 </div>
               </div>
               
