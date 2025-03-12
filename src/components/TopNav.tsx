@@ -1,5 +1,5 @@
 
-import { Home, Megaphone, MessageSquare, Bell, User, Search, Bot, X } from "lucide-react";
+import { Home, Megaphone, MessageSquare, Bell, Search, Bot, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
@@ -17,7 +17,7 @@ export const TopNav = ({ className }: TopNavProps) => {
         <img 
           src="/lovable-uploads/abad0dae-c641-4c7d-ba2e-dfa5449c5e28.png" 
           alt="All Things Advertising" 
-          className="h-12"
+          className="h-14"
         />
         <div className="relative max-w-md w-full hidden sm:block">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -36,7 +36,18 @@ export const TopNav = ({ className }: TopNavProps) => {
         <NavItem icon={<Megaphone className="h-5 w-5" />} label="Ads" />
         <NavItem icon={<MessageSquare className="h-5 w-5" />} label="Messaging" />
         <NavItem icon={<Bell className="h-5 w-5" />} label="Notifications" count={3} />
-        <NavItem icon={<User className="h-5 w-5" />} label="Me" />
+        <NavItem 
+          icon={
+            <div className="h-7 w-7 rounded-full overflow-hidden">
+              <img 
+                src="/lovable-uploads/b7b6502b-52e0-4dd4-8d6c-5b22ab249809.png"
+                alt="Profile"
+                className="h-full w-full object-cover"
+              />
+            </div>
+          } 
+          hideLabel={true}
+        />
       </div>
 
       {/* Floating AI Assistant Button */}
@@ -88,13 +99,14 @@ export const TopNav = ({ className }: TopNavProps) => {
 
 interface NavItemProps {
   icon: React.ReactNode;
-  label: string;
+  label?: string;
   active?: boolean;
   count?: number;
   purple?: boolean;
+  hideLabel?: boolean;
 }
 
-const NavItem = ({ icon, label, active, count, purple }: NavItemProps) => {
+const NavItem = ({ icon, label, active, count, purple, hideLabel }: NavItemProps) => {
   return (
     <div className="flex flex-col items-center px-1 py-1 cursor-pointer relative">
       {count && (
@@ -109,13 +121,15 @@ const NavItem = ({ icon, label, active, count, purple }: NavItemProps) => {
       )}>
         {icon}
       </div>
-      <span className={cn(
-        "text-xs hidden md:block",
-        active ? "text-[#7C42FF]" : "text-gray-600",
-        purple && "text-[#7C42FF]"
-      )}>
-        {label}
-      </span>
+      {!hideLabel && label && (
+        <span className={cn(
+          "text-xs hidden md:block",
+          active ? "text-[#7C42FF]" : "text-gray-600",
+          purple && "text-[#7C42FF]"
+        )}>
+          {label}
+        </span>
+      )}
     </div>
   );
 };
