@@ -1,7 +1,9 @@
+
 import { Star, Heart, Filter } from "lucide-react";
 import { useState } from "react";
 import { TopNav } from "@/components/TopNav";
 import { CategoryBanner } from "@/components/CategoryBanner";
+import { AdvertisingBoard } from "@/components/AdvertisingBoard";
 import { cn } from "@/lib/utils";
 
 // Ad categories
@@ -29,6 +31,7 @@ const HomePage = () => {
   
   // List of ad categories
   const categories: Category[] = [
+    { id: "all", name: "All", icon: <span className="text-xl">🌐</span> },
     { 
       id: "amazing-products", 
       name: "Amazing products", 
@@ -148,6 +151,11 @@ const HomePage = () => {
     <div className="min-h-screen bg-[#f8f8f8]">
       <TopNav />
       <div className="mx-auto max-w-7xl">
+        {/* 3D Advertising Board */}
+        <div className="px-6 pt-4">
+          <AdvertisingBoard />
+        </div>
+        
         {/* Categories Scrollable Bar with Animated Banners */}
         <div className="overflow-x-auto px-6 py-4 flex items-center border-b border-gray-200 bg-white">
           <div className="flex space-x-8">
