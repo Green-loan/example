@@ -1,8 +1,10 @@
+
 import { Home, Megaphone, MessageSquare, Bell, Search, Bot, X, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { useState, useRef, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
+import { Link, useLocation } from "react-router-dom";
 
 interface TopNavProps {
   className?: string;
@@ -22,6 +24,12 @@ export const TopNav = ({ className }: TopNavProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+  const location = useLocation();
+
+  // Check if current route is home
+  const isHome = location.pathname === '/';
+  // Check if current route is dashboard
+  const isDashboard = location.pathname === '/dashboard';
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -81,11 +89,13 @@ export const TopNav = ({ className }: TopNavProps) => {
   return (
     <div className={cn("flex items-center justify-between w-full py-2 px-4 bg-white border-b shadow-sm", className)}>
       <div className="flex items-center space-x-2 flex-1">
-        <img 
-          src="/lovable-uploads/abad0dae-c641-4c7d-ba2e-dfa5449c5e28.png" 
-          alt="All Things Advertising" 
-          className="h-14"
-        />
+        <Link to="/">
+          <img 
+            src="/lovable-uploads/abad0dae-c641-4c7d-ba2e-dfa5449c5e28.png" 
+            alt="All Things Advertising" 
+            className="h-14"
+          />
+        </Link>
         <div className="relative max-w-md w-full hidden sm:block">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <Search className="h-4 w-4 text-gray-400" />
@@ -99,8 +109,12 @@ export const TopNav = ({ className }: TopNavProps) => {
       </div>
       
       <div className="flex items-center justify-end space-x-1 sm:space-x-2">
-        <NavItem icon={<Home className="h-5 w-5" />} label="Home" active />
-        <NavItem icon={<Megaphone className="h-5 w-5" />} label="Ads" />
+        <Link to="/">
+          <NavItem icon={<Home className="h-5 w-5" />} label="Home" active={isHome} />
+        </Link>
+        <Link to="/dashboard">
+          <NavItem icon={<Megaphone className="h-5 w-5" />} label="Dashboard" active={isDashboard} />
+        </Link>
         <NavItem icon={<MessageSquare className="h-5 w-5" />} label="Messaging" />
         <NavItem icon={<Bell className="h-5 w-5" />} label="Notifications" count={3} />
         <NavItem 
