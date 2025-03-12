@@ -1,15 +1,82 @@
-
-import { Home, Megaphone, MessageSquare, Bell, Search, Bot, X } from "lucide-react";
+import { Home, Megaphone, MessageSquare, Bell, Search, Bot, X, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 interface TopNavProps {
   className?: string;
 }
 
+type Message = {
+  content: string;
+  role: 'user' | 'assistant';
+};
+
 export const TopNav = ({ className }: TopNavProps) => {
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [inputMessage, setInputMessage] = useState('');
+  const [messages, setMessages] = useState<Message[]>([
+    { role: 'assistant', content: 'Hi there! How can I help you with Toyota Motors today?' }
+  ]);
+  const [isLoading, setIsLoading] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const handleSendMessage = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    
+    if (!inputMessage.trim()) return;
+    
+    const userMessage = { role: 'user' as const, content: inputMessage };
+    setMessages(prev => [...prev, userMessage]);
+    setInputMessage('');
+    setIsLoading(true);
+
+    // Generate a response based on the user's query
+    setTimeout(() => {
+      const response = generateResponse(inputMessage);
+      setMessages(prev => [...prev, { role: 'assistant', content: response }]);
+      setIsLoading(false);
+    }, 1000);
+  };
+
+  const generateResponse = (query: string): string => {
+    // Simple response generation based on keywords
+    const queryLower = query.toLowerCase();
+    
+    if (queryLower.includes('hello') || queryLower.includes('hi') || queryLower.includes('hey')) {
+      return "Hello! I'm Toyota's AI assistant. How can I help you today?";
+    } else if (queryLower.includes('model') && queryLower.includes('car')) {
+      return "Toyota offers a wide range of models including Corolla, Camry, RAV4, Highlander, and our luxury Lexus brand. Which specific model are you interested in?";
+    } else if (queryLower.includes('price') || queryLower.includes('cost')) {
+      return "Our vehicles are priced competitively based on features and model. The Corolla starts around $20,000, while our premium models like the Land Cruiser can reach $85,000+. Would you like specific pricing on a particular model?";
+    } else if (queryLower.includes('electric') || queryLower.includes('ev')) {
+      return "Toyota is committed to sustainable mobility with our bZ4X fully electric vehicle and various hybrid options like the Prius and RAV4 Hybrid. Our goal is carbon neutrality by 2050.";
+    } else if (queryLower.includes('dealer') || queryLower.includes('location')) {
+      return "You can find Toyota dealerships worldwide. Please provide your location for the nearest dealership information.";
+    } else if (queryLower.includes('warranty')) {
+      return "Toyota vehicles come with a standard 3-year/36,000-mile basic warranty and a 5-year/60,000-mile powertrain warranty. Hybrid components have an 8-year/100,000-mile warranty.";
+    } else if (queryLower.includes('who are you') || queryLower.includes('what model') || queryLower.includes('ai model')) {
+      return "I'm a simple rule-based AI assistant for Toyota Motors. I'm not using a complex model like GPT-4 or other LLMs - I'm just a demonstration of how a chatbot interface could work in this application.";
+    } else {
+      return "Thank you for your interest in Toyota. As a world leader in automotive manufacturing, we're committed to quality, durability, and innovation. Is there something specific about our vehicles or services you'd like to know?";
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSendMessage();
+    }
+  };
 
   return (
     <div className={cn("flex items-center justify-between w-full py-2 px-4 bg-white border-b shadow-sm", className)}>
@@ -50,47 +117,75 @@ export const TopNav = ({ className }: TopNavProps) => {
         />
       </div>
 
-      {/* Floating AI Assistant Button */}
       <div className="fixed bottom-6 right-6 z-40">
         <button 
           onClick={() => setIsChatOpen(!isChatOpen)}
-          className="bg-[#7C42FF] hover:bg-[#6a35e0] text-white rounded-full p-3 shadow-lg flex items-center justify-center"
+          className="bg-[#7C42FF] hover:bg-[#6a35e0] text-white rounded-full p-3 shadow-lg flex items-center justify-center transition-transform duration-300 hover:scale-105"
+          aria-label="Open AI Assistant"
         >
           <Bot className="h-6 w-6" />
         </button>
       </div>
 
-      {/* Chat Popup */}
       {isChatOpen && (
-        <div className="fixed bottom-20 right-6 w-80 bg-white rounded-lg shadow-xl z-50 overflow-hidden flex flex-col border border-gray-200">
+        <div className="fixed bottom-20 right-6 w-80 bg-white rounded-lg shadow-xl z-50 overflow-hidden flex flex-col border border-gray-200 animate-in fade-in slide-in-from-bottom-5 duration-300">
           <div className="bg-gradient-to-r from-[#7C42FF] to-[#ff6e8a] px-4 py-3 flex justify-between items-center">
             <div className="flex items-center gap-2">
               <Bot className="h-5 w-5 text-white" />
-              <h3 className="text-white font-medium">AI Assistant</h3>
+              <h3 className="text-white font-medium">Toyota AI Assistant</h3>
             </div>
             <button 
               onClick={() => setIsChatOpen(false)}
-              className="text-white hover:bg-white/20 rounded-full p-1"
+              className="text-white hover:bg-white/20 rounded-full p-1 transition-colors"
             >
               <X className="h-4 w-4" />
             </button>
           </div>
           
           <div className="p-4 h-80 overflow-y-auto bg-gray-50 flex flex-col gap-3">
-            <div className="bg-white p-3 rounded-lg rounded-tl-none shadow-sm self-start max-w-[80%]">
-              <p className="text-sm">Hi there! How can I help you with your advertising today?</p>
-            </div>
+            {messages.map((message, index) => (
+              <div 
+                key={index} 
+                className={cn(
+                  "p-3 rounded-lg shadow-sm max-w-[80%] animate-in fade-in slide-in-from-bottom-3 duration-200",
+                  message.role === 'assistant' 
+                    ? "bg-white rounded-tl-none self-start" 
+                    : "bg-[#7C42FF] text-white rounded-tr-none self-end"
+                )}
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <p className="text-sm">{message.content}</p>
+              </div>
+            ))}
+            {isLoading && (
+              <div className="bg-white p-3 rounded-lg rounded-tl-none shadow-sm self-start max-w-[80%] animate-pulse">
+                <div className="flex space-x-2">
+                  <div className="h-2 w-2 bg-gray-300 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                  <div className="h-2 w-2 bg-gray-300 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                  <div className="h-2 w-2 bg-gray-300 rounded-full animate-bounce" style={{ animationDelay: '600ms' }}></div>
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
           </div>
           
-          <div className="border-t p-3 flex gap-2">
+          <form onSubmit={handleSendMessage} className="border-t p-3 flex gap-2">
             <Input 
+              value={inputMessage}
+              onChange={(e) => setInputMessage(e.target.value)}
+              onKeyPress={handleKeyPress}
               placeholder="Type your message..." 
               className="text-sm" 
+              disabled={isLoading}
             />
-            <button className="bg-[#7C42FF] text-white px-3 py-1 rounded hover:bg-[#6a35e0]">
-              Send
+            <button 
+              type="submit"
+              disabled={isLoading || !inputMessage.trim()}
+              className="bg-[#7C42FF] text-white p-2 rounded-full hover:bg-[#6a35e0] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+            >
+              <Send className="h-4 w-4" />
             </button>
-          </div>
+          </form>
         </div>
       )}
     </div>
