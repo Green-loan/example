@@ -1,4 +1,3 @@
-
 import { Star, Heart, Filter } from "lucide-react";
 import { useState } from "react";
 import { TopNav } from "@/components/TopNav";
@@ -17,11 +16,11 @@ type Category = {
 type AdItem = {
   id: string;
   title: string;
-  location: string;
+  advertiser: string;
   rating: number;
   isFavorite: boolean;
   imageUrl: string;
-  distance: string;
+  description: string;
   dateRange: string;
   isGuestFavorite?: boolean;
 };
@@ -54,92 +53,70 @@ const HomePage = () => {
   const adItems: AdItem[] = [
     {
       id: "ad1",
-      title: "Sandton, South Africa",
-      location: "Johannesburg, Gauteng",
+      title: "TechPro Solutions",
+      advertiser: "John Smith - Lead Developer",
       rating: 4.82,
       isFavorite: false,
       imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&w=800&q=75",
-      distance: "23 kilometers away",
-      dateRange: "Mar 22 - 27",
+      description: "Expert software development and IT consulting",
+      dateRange: "Available Now",
       isGuestFavorite: false
     },
     {
       id: "ad2",
-      title: "Sandton, South Africa",
-      location: "Johannesburg, Gauteng",
+      title: "CodeCraft Industries",
+      advertiser: "Sarah Johnson - CEO",
       rating: 4.75,
       isFavorite: false,
       imageUrl: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&w=800&q=75",
-      distance: "17 kilometers away",
-      dateRange: "Mar 22 - 27",
+      description: "Custom software solutions for enterprises",
+      dateRange: "Starting Next Week",
       isGuestFavorite: true
     },
     {
       id: "ad3",
-      title: "Rosebank, South Africa",
-      location: "Johannesburg, Gauteng",
+      title: "Digital Dynamics",
+      advertiser: "Mike Williams - Tech Lead",
       rating: 4.88,
       isFavorite: false,
       imageUrl: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&w=800&q=75",
-      distance: "3 kilometers away",
-      dateRange: "Mar 22 - 27",
+      description: "Web and mobile app development",
+      dateRange: "Immediate Start",
       isGuestFavorite: true
     },
     {
       id: "ad4",
-      title: "Randburg, South Africa",
-      location: "Johannesburg, Gauteng",
+      title: "InnovateTech Solutions",
+      advertiser: "Emma Davis - Project Manager",
       rating: 5.0,
       isFavorite: false,
       imageUrl: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&w=800&q=75",
-      distance: "11 kilometers away",
-      dateRange: "Mar 13 - 18",
+      description: "Innovative software solutions",
+      dateRange: "Available Now",
       isGuestFavorite: false
     },
     {
       id: "ad5",
-      title: "Midrand, South Africa",
-      location: "Johannesburg, Gauteng",
+      title: "ByteBridge Consulting",
+      advertiser: "Alex Chen - Solutions Architect",
       rating: 4.92,
       isFavorite: false,
       imageUrl: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&w=800&q=75",
-      distance: "28 kilometers away",
-      dateRange: "Apr 5 - 10",
+      description: "Enterprise software consulting",
+      dateRange: "Flexible Schedule",
       isGuestFavorite: false
     },
     {
       id: "ad6",
-      title: "Centurion, South Africa",
-      location: "Pretoria, Gauteng",
+      title: "DevStack Technologies",
+      advertiser: "Robert Miller - CTO",
       rating: 4.79,
       isFavorite: false,
       imageUrl: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&w=800&q=75",
-      distance: "45 kilometers away",
-      dateRange: "Apr 15 - 22",
+      description: "Full-stack development services",
+      dateRange: "Starting Soon",
       isGuestFavorite: true
-    },
-    {
-      id: "ad7",
-      title: "Pretoria East, South Africa",
-      location: "Pretoria, Gauteng",
-      rating: 4.65,
-      isFavorite: false,
-      imageUrl: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&w=800&q=75",
-      distance: "52 kilometers away",
-      dateRange: "May 1 - 7",
-      isGuestFavorite: false
-    },
-    {
-      id: "ad8",
-      title: "Hartbeespoort, South Africa",
-      location: "North West Province",
-      rating: 4.95,
-      isFavorite: false,
-      imageUrl: "/lovable-uploads/d9503ddd-c5fc-4cfa-b2f9-5e8c923912fd.png",
-      distance: "65 kilometers away",
-      dateRange: "May 12 - 18",
-      isGuestFavorite: true
-    },
+    }
   ];
 
   // Handle toggling favorites
@@ -156,7 +133,7 @@ const HomePage = () => {
           <AdvertisingBoard />
         </div>
         
-        {/* Categories Scrollable Bar with Animated Banners */}
+        {/* Categories Scrollable Bar */}
         <div className="overflow-x-auto px-6 py-4 flex items-center border-b border-gray-200 bg-white">
           <div className="flex space-x-8">
             {categories.map((category) => (
@@ -180,14 +157,13 @@ const HomePage = () => {
           </div>
         </div>
 
-        {/* Ad Grid with lazy loading and optimized images */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
+        {/* Updated Ad Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6">
           {adItems.map((ad) => (
             <div key={ad.id} className="group relative rounded-xl overflow-hidden bg-white shadow-sm transition-all duration-300 hover:shadow-md animate-fade-in">
-              {/* Image with loading optimization */}
               <div className="relative h-64 w-full overflow-hidden bg-gray-100">
                 <img 
-                  src={`${ad.imageUrl}&auto=format&w=800&q=75`}
+                  src={ad.imageUrl}
                   alt={ad.title}
                   loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -195,33 +171,24 @@ const HomePage = () => {
                 <button 
                   onClick={() => toggleFavorite(ad.id)}
                   className="absolute right-3 top-3 rounded-full p-2 transition-colors"
-                  aria-label="Add to favorites"
                 >
                   <Heart className={cn("h-6 w-6 transition-all duration-300", 
                     ad.isFavorite ? "fill-red-500 text-red-500" : "text-white"
                   )} />
                 </button>
                 
-                {/* Rating stars with animation */}
                 <div className="absolute bottom-3 left-3 flex items-center gap-1 bg-white/90 rounded-lg px-2 py-1">
                   <Star className="h-4 w-4 fill-yellow-500 text-yellow-500" />
                   <span className="text-sm font-medium">{ad.rating}</span>
                 </div>
               </div>
               
-              {/* Ad Info */}
               <div className="p-4">
-                <div className="flex justify-between items-start">
-                  <h3 className="text-lg font-medium">{ad.title}</h3>
-                  <div className="flex items-center">
-                    <Star className="h-4 w-4 fill-current text-black" />
-                    <span className="ml-1 text-sm">{ad.rating}</span>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-500">{ad.distance}</p>
+                <h3 className="text-lg font-medium">{ad.title}</h3>
+                <p className="text-sm text-gray-600">{ad.advertiser}</p>
+                <p className="text-sm text-gray-500 mt-1">{ad.description}</p>
                 <p className="text-sm text-gray-500">{ad.dateRange}</p>
                 <div className="mt-2 flex items-center">
-                  {/* Rating stars */}
                   <div className="flex items-center">
                     {[...Array(5)].map((_, i) => (
                       <Star 
@@ -243,6 +210,35 @@ const HomePage = () => {
             </div>
           ))}
         </div>
+
+        {/* Company Footer */}
+        <footer className="bg-white border-t mt-8 py-12">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-xl font-semibold mb-4">About All Things Advertising</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  All Things Advertising is your premier destination for connecting with top tech talent 
+                  and innovative companies. We provide a platform where businesses can showcase their 
+                  services and professionals can highlight their expertise in software development, 
+                  consulting, and digital solutions.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold mb-4">Our Mission</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  We're dedicated to bridging the gap between exceptional tech talent and forward-thinking 
+                  companies. Our platform facilitates meaningful connections that drive innovation and 
+                  growth in the technology sector, making it easier for businesses to find the right 
+                  expertise and for professionals to showcase their services.
+                </p>
+              </div>
+            </div>
+            <div className="mt-8 text-center text-gray-500 text-sm">
+              © 2024 All Things Advertising. All rights reserved.
+            </div>
+          </div>
+        </footer>
       </div>
     </div>
   );
