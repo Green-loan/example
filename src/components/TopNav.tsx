@@ -1,3 +1,4 @@
+
 import { Home, Megaphone, MessageSquare, Bell, Search, Bot, X, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
@@ -17,7 +18,7 @@ export const TopNav = ({ className }: TopNavProps) => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [inputMessage, setInputMessage] = useState('');
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: 'Hi there! How can I help you with Toyota Motors today?' }
+    { role: 'assistant', content: 'Hi there! How can I help you with advertising on AllThings ADs today?' }
   ]);
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -54,21 +55,21 @@ export const TopNav = ({ className }: TopNavProps) => {
     const queryLower = query.toLowerCase();
     
     if (queryLower.includes('hello') || queryLower.includes('hi') || queryLower.includes('hey')) {
-      return "Hello! I'm Toyota's AI assistant. How can I help you today?";
-    } else if (queryLower.includes('model') && queryLower.includes('car')) {
-      return "Toyota offers a wide range of models including Corolla, Camry, RAV4, Highlander, and our luxury Lexus brand. Which specific model are you interested in?";
-    } else if (queryLower.includes('price') || queryLower.includes('cost')) {
-      return "Our vehicles are priced competitively based on features and model. The Corolla starts around $20,000, while our premium models like the Land Cruiser can reach $85,000+. Would you like specific pricing on a particular model?";
-    } else if (queryLower.includes('electric') || queryLower.includes('ev')) {
-      return "Toyota is committed to sustainable mobility with our bZ4X fully electric vehicle and various hybrid options like the Prius and RAV4 Hybrid. Our goal is carbon neutrality by 2050.";
-    } else if (queryLower.includes('dealer') || queryLower.includes('location')) {
-      return "You can find Toyota dealerships worldwide. Please provide your location for the nearest dealership information.";
-    } else if (queryLower.includes('warranty')) {
-      return "Toyota vehicles come with a standard 3-year/36,000-mile basic warranty and a 5-year/60,000-mile powertrain warranty. Hybrid components have an 8-year/100,000-mile warranty.";
+      return "Hello! I'm the AllThings ADs AI assistant. How can I help with your advertising needs today?";
+    } else if (queryLower.includes('platform') || queryLower.includes('about')) {
+      return "AllThings ADs is a comprehensive advertising platform that helps businesses connect with their target audience through various digital marketing channels.";
+    } else if (queryLower.includes('price') || queryLower.includes('cost') || queryLower.includes('pricing')) {
+      return "Our advertising packages are customized based on your business needs and target audience. We offer flexible pricing starting from $500 for small campaigns to enterprise solutions. Would you like a personalized quote?";
+    } else if (queryLower.includes('digital') || queryLower.includes('social media')) {
+      return "We offer a full range of digital advertising solutions including social media campaigns, search engine marketing, display ads, and programmatic advertising to maximize your reach and ROI.";
+    } else if (queryLower.includes('analytics') || queryLower.includes('report') || queryLower.includes('performance')) {
+      return "Our platform provides detailed analytics and reporting on all your campaigns. You can track impressions, clicks, conversions, and ROI in real-time through our intuitive dashboard.";
+    } else if (queryLower.includes('audience') || queryLower.includes('target')) {
+      return "Our advanced targeting capabilities allow you to reach your ideal customers based on demographics, interests, online behavior, geographic location, and more.";
     } else if (queryLower.includes('who are you') || queryLower.includes('what model') || queryLower.includes('ai model')) {
-      return "I'm a simple rule-based AI assistant for Toyota Motors. I'm not using a complex model like GPT-4 or other LLMs - I'm just a demonstration of how a chatbot interface could work in this application.";
+      return "I'm a simple rule-based AI assistant for AllThings ADs. I'm not using a complex model like GPT-4 or other LLMs - I'm just a demonstration of how a chatbot interface could work in this application.";
     } else {
-      return "Thank you for your interest in Toyota. As a world leader in automotive manufacturing, we're committed to quality, durability, and innovation. Is there something specific about our vehicles or services you'd like to know?";
+      return "Thank you for your interest in AllThings ADs. We're here to help you grow your business through strategic advertising solutions. Our platform offers targeted campaigns across multiple channels to maximize your marketing budget. Is there something specific about our advertising services you'd like to know?";
     }
   };
 
@@ -132,7 +133,7 @@ export const TopNav = ({ className }: TopNavProps) => {
           <div className="bg-gradient-to-r from-[#7C42FF] to-[#ff6e8a] px-4 py-3 flex justify-between items-center">
             <div className="flex items-center gap-2">
               <Bot className="h-5 w-5 text-white" />
-              <h3 className="text-white font-medium">Toyota AI Assistant</h3>
+              <h3 className="text-white font-medium">AllThings ADs AI</h3>
             </div>
             <button 
               onClick={() => setIsChatOpen(false)}
@@ -158,7 +159,12 @@ export const TopNav = ({ className }: TopNavProps) => {
               </div>
             ))}
             {isLoading && (
-              <div className="bg-white p-3 rounded-lg rounded-tl-none shadow-sm self-start max-w-[80%] animate-pulse">
+              <div className="bg-white p-3 rounded-lg rounded-tl-none shadow-sm self-start max-w-[80%] flex items-center space-x-2">
+                <img 
+                  src="/lovable-uploads/abad0dae-c641-4c7d-ba2e-dfa5449c5e28.png" 
+                  alt="AllThings ADs" 
+                  className="h-5 w-5 animate-spin"
+                />
                 <div className="flex space-x-2">
                   <div className="h-2 w-2 bg-gray-300 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
                   <div className="h-2 w-2 bg-gray-300 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
