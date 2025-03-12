@@ -4,6 +4,7 @@ import { ConversionsChart } from "@/components/ConversionsChart";
 import { ReportSources } from "@/components/ReportSources";
 import { StatsCard } from "@/components/StatsCard";
 import { TopNav } from "@/components/TopNav";
+import { ProfileCard } from "@/components/ProfileCard";
 
 const Index = () => {
   return (
@@ -16,11 +17,19 @@ const Index = () => {
           <p className="text-gray-600">Here's your advertising dashboard overview</p>
         </div>
         
-        {/* Conversions Section */}
-        <div className="rounded-xl bg-white p-6 shadow-sm">
-          <h1 className="text-2xl font-semibold text-gray-900">Conversions</h1>
-          <div className="mt-4">
-            <ConversionsChart />
+        {/* Conversions Section with Profile Card */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          {/* Profile Card - Left Side */}
+          <div className="md:col-span-1">
+            <ProfileCard />
+          </div>
+          
+          {/* Conversions Chart - Right Side */}
+          <div className="md:col-span-3 rounded-xl bg-white p-6 shadow-sm">
+            <h1 className="text-2xl font-semibold text-gray-900">Conversions</h1>
+            <div className="mt-4">
+              <ConversionsChart />
+            </div>
           </div>
         </div>
 
