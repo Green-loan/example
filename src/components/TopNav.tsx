@@ -1,5 +1,5 @@
 
-import { Home, Users, Briefcase, MessageSquare, Bell, User, Search } from "lucide-react";
+import { Home, Users, Briefcase, MessageSquare, Bell, User, Search, Bot } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 
