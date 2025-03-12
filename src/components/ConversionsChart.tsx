@@ -34,7 +34,7 @@ export const ConversionsChart = () => {
           />
           <Bar
             dataKey="value"
-            fill="#2563eb"
+            fill="#7C42FF"
             radius={[4, 4, 0, 0]}
             className="fill-primary"
           />

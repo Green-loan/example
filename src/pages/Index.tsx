@@ -3,11 +3,13 @@ import { Eye, MousePointer, Zap, DollarSign } from "lucide-react";
 import { ConversionsChart } from "@/components/ConversionsChart";
 import { ReportSources } from "@/components/ReportSources";
 import { StatsCard } from "@/components/StatsCard";
+import { TopNav } from "@/components/TopNav";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="mx-auto max-w-7xl space-y-8">
+    <div className="min-h-screen bg-[#f6f4ff]">
+      <TopNav />
+      <div className="mx-auto max-w-7xl space-y-8 p-8">
         {/* Conversions Section */}
         <div className="rounded-xl bg-white p-6 shadow-sm">
           <h1 className="text-2xl font-semibold text-gray-900">Conversions</h1>
