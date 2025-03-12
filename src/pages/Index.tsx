@@ -7,9 +7,9 @@ import { TopNav } from "@/components/TopNav";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-[#f6f4ff]">
+    <div className="min-h-screen bg-[#f8f8f8]">
       <TopNav />
-      <div className="mx-auto max-w-7xl space-y-8 p-8">
+      <div className="mx-auto max-w-7xl space-y-6 p-6">
         {/* Conversions Section */}
         <div className="rounded-xl bg-white p-6 shadow-sm">
           <h1 className="text-2xl font-semibold text-gray-900">Conversions</h1>
