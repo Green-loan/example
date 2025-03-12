@@ -1,4 +1,3 @@
-
 import { Home, Megaphone, MessageSquare, Bell, Search, Bot, X, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
@@ -106,11 +105,11 @@ export const TopNav = ({ className }: TopNavProps) => {
         <NavItem icon={<Bell className="h-5 w-5" />} label="Notifications" count={3} />
         <NavItem 
           icon={
-            <div className="h-7 w-7 rounded-full overflow-hidden">
+            <div className="h-7 w-7 rounded-full overflow-hidden bg-white flex items-center justify-center">
               <img 
-                src="/lovable-uploads/b7b6502b-52e0-4dd4-8d6c-5b22ab249809.png"
+                src="/lovable-uploads/9ad7df03-82de-4a79-b1ac-a9769c51fb25.png"
                 alt="Profile"
-                className="h-full w-full object-cover"
+                className="h-5 w-5 object-contain"
               />
             </div>
           } 
