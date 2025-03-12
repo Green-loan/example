@@ -20,7 +20,7 @@ const sources = [
 
 export const ReportSources = () => {
   return (
-    <div className="rounded-xl bg-white p-6 shadow-sm">
+    <div className="rounded-xl bg-white p-6 shadow-sm animate-fade-in">
       <h2 className="text-xl font-semibold text-gray-900">Report sources</h2>
       <p className="mt-1 text-sm text-gray-500">
         This report contains {sources.length} sources:
@@ -30,15 +30,18 @@ export const ReportSources = () => {
         <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
         <Input
           placeholder="Find a source"
-          className="pl-9"
+          className="pl-9 transition-all duration-300 focus:scale-[1.02]"
         />
       </div>
 
       <div className="mt-4 space-y-3">
-        {sources.map((source) => (
+        {sources.map((source, index) => (
           <div
             key={source.name}
-            className="flex items-center justify-between rounded-lg border p-3 transition-all hover:bg-gray-50"
+            className="flex items-center justify-between rounded-lg border p-3 transition-all duration-300 hover:bg-gray-50 hover:scale-[1.02] animate-fade-in"
+            style={{
+              animationDelay: `${index * 100}ms`
+            }}
           >
             <div className="flex items-center space-x-3">
               <div className="h-8 w-8 rounded-full bg-gray-100" />
@@ -53,7 +56,7 @@ export const ReportSources = () => {
         ))}
       </div>
 
-      <button className="mt-4 flex w-full items-center justify-center space-x-2 rounded-lg border p-3 text-blue-600 transition-colors hover:bg-blue-50">
+      <button className="mt-4 flex w-full items-center justify-center space-x-2 rounded-lg border p-3 text-blue-600 transition-all duration-300 hover:bg-blue-50 hover:scale-[1.02]">
         <span>Browse all channels</span>
         <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

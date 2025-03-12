@@ -34,18 +34,28 @@ const finalData = [
 
 export const ConversionsChart = () => {
   const [data, setData] = useState(initialData);
+  const [animated, setAnimated] = useState(false);
   
   useEffect(() => {
-    // Animate the bars starting when component mounts
-    const animateTimeout = setTimeout(() => {
-      setData(finalData);
+    // Animate the bars starting when component mounts with a staggered effect
+    const timer = setTimeout(() => {
+      setAnimated(true);
+      const animateData = [...initialData];
+      
+      // Staggered animation for each bar
+      finalData.forEach((item, index) => {
+        setTimeout(() => {
+          animateData[index] = item;
+          setData([...animateData]);
+        }, index * 100); // 100ms delay between each bar
+      });
     }, 300);
     
-    return () => clearTimeout(animateTimeout);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div className="h-[300px] w-full">
+    <div className="h-[300px] w-full animate-fade-in">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data}>
           <defs>
@@ -72,7 +82,9 @@ export const ConversionsChart = () => {
             dataKey="value"
             fill="url(#purpleBlueGradient)"
             radius={[4, 4, 0, 0]}
-            className="transition-all duration-1000 ease-out"
+            className={`transition-all duration-1000 ease-out ${
+              animated ? "opacity-100" : "opacity-0"
+            }`}
           />
         </BarChart>
       </ResponsiveContainer>
