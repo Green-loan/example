@@ -1,3 +1,4 @@
+
 import { Home, Megaphone, MessageSquare, Bell, Search, Bot, X, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
@@ -87,7 +88,7 @@ export const TopNav = ({ className }: TopNavProps) => {
   };
 
   return (
-    <div className={cn("flex items-center justify-between w-full py-2 px-4 bg-white border-b shadow-sm", className)}>
+    <div className={cn("flex items-center justify-between w-full py-3 px-6 bg-white/80 backdrop-blur-md border-b shadow-sm", className)}>
       <div className="flex items-center space-x-2 flex-1">
         <Link to="/">
           <Logo3D />
@@ -99,12 +100,12 @@ export const TopNav = ({ className }: TopNavProps) => {
           <Input 
             type="text" 
             placeholder="Search" 
-            className="pl-10 bg-[#EEF3F8] text-sm border-none focus-visible:ring-[#7C42FF]" 
+            className="pl-10 bg-[#f7f7f7] text-sm border-none focus-visible:ring-gray-400" 
           />
         </div>
       </div>
       
-      <div className="flex items-center justify-end space-x-1 sm:space-x-2">
+      <div className="flex items-center justify-end space-x-1 sm:space-x-4">
         <Link to="/">
           <NavItem icon={<Home className="h-5 w-5" />} label="Home" active={isHome} />
         </Link>
@@ -115,11 +116,11 @@ export const TopNav = ({ className }: TopNavProps) => {
         <NavItem icon={<Bell className="h-5 w-5" />} label="Notifications" count={3} />
         <NavItem 
           icon={
-            <div className="h-7 w-7 rounded-full overflow-hidden bg-white flex items-center justify-center">
+            <div className="h-9 w-9 rounded-full overflow-hidden bg-white flex items-center justify-center border border-gray-200">
               <img 
                 src="/lovable-uploads/9ad7df03-82de-4a79-b1ac-a9769c51fb25.png"
                 alt="Profile"
-                className="h-5 w-5 object-contain"
+                className="h-8 w-8 object-contain"
               />
             </div>
           } 
@@ -127,10 +128,10 @@ export const TopNav = ({ className }: TopNavProps) => {
         />
       </div>
 
-      <div className="fixed bottom-6 right-6 z-40">
+      <div className="floating-ai-icon">
         <button 
           onClick={() => setIsChatOpen(!isChatOpen)}
-          className="bg-[#7C42FF] hover:bg-[#6a35e0] text-white rounded-full p-3 shadow-lg flex items-center justify-center transition-transform duration-300 hover:scale-105"
+          className="bg-white hover:bg-gray-100 text-gray-800 rounded-full p-3 shadow-lg flex items-center justify-center transition-all duration-300"
           aria-label="Open AI Assistant"
         >
           <Bot className="h-6 w-6" />
@@ -139,7 +140,7 @@ export const TopNav = ({ className }: TopNavProps) => {
 
       {isChatOpen && (
         <div className="fixed bottom-20 right-6 w-80 bg-white rounded-lg shadow-xl z-50 overflow-hidden flex flex-col border border-gray-200 animate-in fade-in slide-in-from-bottom-5 duration-300">
-          <div className="bg-gradient-to-r from-[#7C42FF] to-[#ff6e8a] px-4 py-3 flex justify-between items-center">
+          <div className="bg-gray-800 px-4 py-3 flex justify-between items-center">
             <div className="flex items-center gap-2">
               <Bot className="h-5 w-5 text-white" />
               <h3 className="text-white font-medium">AllThings ADs AI</h3>
@@ -159,8 +160,8 @@ export const TopNav = ({ className }: TopNavProps) => {
                 className={cn(
                   "p-3 rounded-lg shadow-sm max-w-[80%] animate-in fade-in slide-in-from-bottom-3 duration-200",
                   message.role === 'assistant' 
-                    ? "bg-white rounded-tl-none self-start" 
-                    : "bg-[#7C42FF] text-white rounded-tr-none self-end"
+                    ? "bg-white rounded-tl-none self-start border border-gray-200" 
+                    : "bg-gray-800 text-white rounded-tr-none self-end"
                 )}
                 style={{ animationDelay: `${index * 100}ms` }}
               >
@@ -168,7 +169,7 @@ export const TopNav = ({ className }: TopNavProps) => {
               </div>
             ))}
             {isLoading && (
-              <div className="bg-white p-3 rounded-lg rounded-tl-none shadow-sm self-start max-w-[80%] flex items-center space-x-2">
+              <div className="bg-white p-3 rounded-lg rounded-tl-none shadow-sm self-start max-w-[80%] flex items-center space-x-2 border border-gray-200">
                 <img 
                   src="/lovable-uploads/abad0dae-c641-4c7d-ba2e-dfa5449c5e28.png" 
                   alt="AllThings ADs" 
@@ -190,13 +191,13 @@ export const TopNav = ({ className }: TopNavProps) => {
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Type your message..." 
-              className="text-sm" 
+              className="text-sm border-gray-300" 
               disabled={isLoading}
             />
             <button 
               type="submit"
               disabled={isLoading || !inputMessage.trim()}
-              className="bg-[#7C42FF] text-white p-2 rounded-full hover:bg-[#6a35e0] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+              className="bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
             >
               <Send className="h-4 w-4" />
             </button>
@@ -218,7 +219,7 @@ interface NavItemProps {
 
 const NavItem = ({ icon, label, active, count, purple, hideLabel }: NavItemProps) => {
   return (
-    <div className="flex flex-col items-center px-1 py-1 cursor-pointer relative">
+    <div className="flex flex-col items-center px-2 py-1 cursor-pointer relative">
       {count && (
         <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
           {count}
@@ -226,16 +227,16 @@ const NavItem = ({ icon, label, active, count, purple, hideLabel }: NavItemProps
       )}
       <div className={cn(
         "p-1 rounded-md",
-        active ? "text-[#7C42FF]" : "text-gray-600 hover:text-[#7C42FF]",
-        purple && "text-[#7C42FF]"
+        active ? "text-gray-800" : "text-gray-600 hover:text-gray-800",
+        purple && "text-gray-800"
       )}>
         {icon}
       </div>
       {!hideLabel && label && (
         <span className={cn(
-          "text-xs hidden md:block",
-          active ? "text-[#7C42FF]" : "text-gray-600",
-          purple && "text-[#7C42FF]"
+          "text-xs hidden md:block font-medium",
+          active ? "text-gray-800" : "text-gray-600",
+          purple && "text-gray-800"
         )}>
           {label}
         </span>
